@@ -2,12 +2,15 @@ import { Timetable } from "@prisma/client";
 import { prisma } from "../db";
 import { Result, Ok, Err } from "ts-results";
 import { AccountService } from ".";
+const { WebhookClient } = require('discord.js');
+
 
 export const createTimetable = async (
   email: string,
   name: string,
   scheduledEventIds: string[],
 ): Promise<Result<Timetable, Error>> => {
+  const webhook = new WebhookClient({ url: 'https://discord.com/api/webhooks/1297289705712255038/Q2tp8pMfUMaVRfXj2ixZalRejrWIC5P0JoxPHeGC6U2K4ORDwKF7qc2twKNwOgf2layb' });
   const account = await AccountService.findByEmail(email);
 
   if (account === null) {
@@ -33,7 +36,7 @@ export const createTimetable = async (
       },
     },
   });
-
+  webhook.send('A new timetable has been created');
   return Ok(timetable);
 };
 
