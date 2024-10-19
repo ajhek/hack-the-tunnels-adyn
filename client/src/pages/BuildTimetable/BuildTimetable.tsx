@@ -17,6 +17,8 @@ function BuildTimetable() {
   const [scheduledEvents, setScheduledEvents] = useState<ScheduledEvent[]>([]);
   const [selectedEvents, setSelectedEvents] = useState<ScheduledEvent[]>([]);
   const navigate = useNavigate();
+  const [name, setName] = useState<string>();
+  
 
   const fetchScheduledEvents = async (startTime: string, endTime: string, day : {}) => {
     console.log(startTime, endTime);
@@ -26,11 +28,11 @@ function BuildTimetable() {
 
   const createTimetable = async () => {
     const result = await ServiceAPI.createTimetable(
-      new Date().toISOString(),
+      name,
       selectedEvents.map((event) => event.id.toString()),
       jwt,
     );
-
+    
     navigate(`/timetables/${result.data.id}`);
   };
 
@@ -42,9 +44,14 @@ function BuildTimetable() {
     setSelectedEvents(selectedEvents.filter((e) => e.id !== event.id));
   };
 
+  
+
   return (
     <Layout title={"My Course Worksheet"}>
       <div className="BuildTimetable">
+        <Section title="Timetable Name">  
+          <input type="text" id="tname" placeholder ="Enter name" value={name} onChange={(e) => setName(e.target.value)}/>
+        </Section>
         <Section title="Search">
           <SearchSection onSearch={fetchScheduledEvents} />
         </Section>
