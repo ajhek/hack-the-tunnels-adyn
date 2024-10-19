@@ -3,7 +3,7 @@ import "./SearchSection.style.scss";
 
 interface SearchSectionProps {
   
-  onSearch: (startTime: string, endTime: string, day: {Mon: boolean, Tue: boolean, Wed: boolean, Thu: boolean, Fri: boolean}) => void;
+  onSearch: (startTime: string, endTime: string, day: {Mon: boolean, Tue: boolean, Wed: boolean, Thu: boolean, Fri: boolean}, courseCode: string) => void;
 }
 function SearchSection({ onSearch }: SearchSectionProps) {
   const [startTime, setStartTime] = useState("");
@@ -15,6 +15,7 @@ function SearchSection({ onSearch }: SearchSectionProps) {
     Thu: false,
     Fri: false
   });
+  const [courseCode, setCourseCode] = useState("");
 
   return (
     <div className="SearchSection">
@@ -40,7 +41,8 @@ function SearchSection({ onSearch }: SearchSectionProps) {
         <input type = "checkbox" onInput={e => setDay(previousState => {return {...previousState, Fri: (e.target as HTMLInputElement).checked}})}></input>
         Friday
       </label>
-      <button onClick={() => onSearch(startTime, endTime, day)}>Search</button>
+      <input type = "text" placeholder="Course Code" value={courseCode} onInput={e => setCourseCode((e.target as HTMLInputElement).value.toString())}></input>
+      <button onClick={() => onSearch(startTime, endTime, day, courseCode)}>Search</button>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { prisma } from "../db";
 import { Result, Ok } from "ts-results";
 
 export const getFirst = async (
-  count: number, sTime : string, eTime : string, daysIn : string,
+  count: number, sTime : string, eTime : string, code : string, daysIn : string,
 ): Promise<Result<ScheduledEvent[], Error>> => {
   console.log(sTime, eTime, daysIn);
   console.log(daysIn.slice(0, 3));
@@ -15,7 +15,7 @@ export const getFirst = async (
       },
       course: {
         subjectCode: {
-          contains: "COMP",
+          contains: code,
         },
       },
       startTime: {

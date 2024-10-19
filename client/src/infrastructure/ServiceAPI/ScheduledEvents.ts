@@ -23,8 +23,8 @@ export interface ScheduledEvent {
   };
 }
 
-export const fetchScheduledEvents = async (startTime : string, endTime : string, day : {}): Promise<ScheduledEvent[]> => {
-  let urlQuery = "?sTime=" + startTime + "&eTime=" + endTime + "&days=";
+export const fetchScheduledEvents = async (startTime : string, endTime : string, day : {}, courseCode : string): Promise<ScheduledEvent[]> => {
+  let urlQuery = "?sTime=" + startTime + "&eTime=" + endTime + "&code=" + courseCode + "&days=";
   for (const [key, value] of Object.entries(day)) {
     if (value) {
       urlQuery += key + ",";

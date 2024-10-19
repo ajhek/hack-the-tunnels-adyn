@@ -20,9 +20,9 @@ function BuildTimetable() {
   const [name, setName] = useState<string>();
   
 
-  const fetchScheduledEvents = async (startTime: string, endTime: string, day : {}) => {
+  const fetchScheduledEvents = async (startTime: string, endTime: string, day : {}, courseCode: string) => {
     console.log(startTime, endTime);
-    const result = await ServiceAPI.fetchScheduledEvents(startTime, endTime, day);
+    const result = await ServiceAPI.fetchScheduledEvents(startTime, endTime, day, courseCode);
     setScheduledEvents(result);
   };
 
