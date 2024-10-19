@@ -4,12 +4,14 @@ import { Base as Layout } from "@/layouts";
 import "./Login.style.scss";
 
 function Login() {
-  const [message, setMessage] = useState(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const { login } = useAccountContext();
 
   const attemptLogin = async () => {
     try {
-      const message = await login("admin@email.com", "password");
+      const message = await login(username, password);
       setMessage(message);
     } catch (error) {
       console.log(error);
@@ -34,8 +36,8 @@ function Login() {
           </div>
           {message && <p>{message}</p>}
           <div className="Login__panel__content__input">
-            <input type="text" placeholder="MyCarletonOne username"></input>
-            <input type="password" placeholder="Password"></input>
+            <input type="text" placeholder="MyCarletonOne username" value={username} onInput={e => setUsername((e.target as HTMLInputElement).value)}></input>
+            <input type="password" placeholder="Password" value={password} onInput={e => setPassword((e.target as HTMLInputElement).value)}></input>
           </div>
           <div className="Login__panel__content__checkbox">
             <input type="checkbox"></input>
