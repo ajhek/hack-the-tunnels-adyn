@@ -23,9 +23,21 @@ export interface ScheduledEvent {
   };
 }
 
-export const fetchScheduledEvents = async (): Promise<ScheduledEvent[]> => {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_ROOT}/api/v1/scheduledEvents`,
+export const fetchScheduledEvents = async (startTime : string, endTime : string, day : {}, courseCode : string): Promise<ScheduledEvent[]> => {
+  let urlQuery = "?sTime=" + startTime + "&eTime=" + endTime + "&code=" + courseCode + "&days=";
+  for (const [key, value] of Object.entries(day)) {
+    if (value) {
+      urlQuery += key + ",";
+    }
+  }
+  console.log(urlQuery);
+  const response = await fetch( 
+    new Request(`${import.meta.env.VITE_API_ROOT}/api/v1/scheduledEvents`+urlQuery, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }),
   );
   const json = await response.json();
 
