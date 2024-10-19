@@ -13,6 +13,9 @@ function Login() {
     try {
       const message = await login(username, password);
       setMessage(message);
+      if (message == "Account not found") {
+        setMessage("WRONG! SULPHURIC ACID!");
+      }
     } catch (error) {
       console.log(error);
     }
