@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 function Menu() {
   return (
     <Layout title={"Main Menu"}>
+      <script>
+        @media (prefers-color-scheme: dark) {
+          document.body.classList.toggle("dark-mode")
+        }
+      </script>
       <br />
       <CabinetSection
         title="Personal Information"
@@ -129,6 +134,7 @@ function Menu() {
           </span>,
         ]}
       />
+      <button onClick={() => document.body.classList.toggle("dark-mode")}>Toggle dark mode</button>
     </Layout>
   );
 }
